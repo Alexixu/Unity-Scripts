@@ -23,6 +23,11 @@
             canvasRenderer.SetMesh(workerMesh);
     }
 ### 可以看到，调用虚函数OnPopulateMesh（VertexHelper）后，还会将该对象上带有IMeshModifier接口的脚本提取出来，按先后顺序执行。所以，可以编写实现了IMeshModifier接口的类来完成Image形状的改变。具体代码可以参考OnPopulateMesh（VertexHelper）中是如何绘制图形代码。
+### 在编写调整Image形状时，首先需要获得顶点列表，这里，笔者没有找到比较直接的方法，只有通过
+    		List<UIVertex> verts = new List<UIVertex>();
+		    vh.GetUIVertexStream(verts);
+### 获得顶点列表流，并且根据API描述，这里的列表流是以三角形为单位的，也就是一个四边形由两个三角形组成，这里的顶点流会产生6个顶点。通过对这6个顶点进行坐标变换，可以得到自定义的形状。
+		    
     
 
 
